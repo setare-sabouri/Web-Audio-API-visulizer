@@ -1,7 +1,9 @@
-# Getting Started with Create React App
+# Random project
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Stack
+* color API
 ## Available Scripts
 
 In the project directory, you can run:
