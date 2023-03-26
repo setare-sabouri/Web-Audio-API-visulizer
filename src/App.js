@@ -1,10 +1,11 @@
 import './App.css';
+import ModelOne from './Models/ModelOne';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Hello cube</h1>
-    </div>
+    <>
+      <ModelOne />
+    </>
   );
 }
 
