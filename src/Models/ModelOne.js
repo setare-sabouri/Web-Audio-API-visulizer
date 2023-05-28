@@ -4,7 +4,7 @@ import { OrbitControls, Environment } from '@react-three/drei';
 import * as THREE from 'three';
 import CubeOne from './cubes/cubeOne';
 import CubeTwo from './cubes/cubeTwo';
-function Modelone() {
+function Modelone({ audioFile }) {
 
     return (
         <div id='canvas-container' className='vh-100'>
@@ -13,8 +13,8 @@ function Modelone() {
                 <OrbitControls enableZoom={false} />
                 <ambientLight intensity={1} />
                 <Environment preset="night" />
-                <CubeOne position={[2, 0, 0]} />
-                <CubeTwo />
+                <CubeOne audioFile={audioFile} />
+                {/* <CubeTwo /> */}
             </Canvas>
 
         </div >
