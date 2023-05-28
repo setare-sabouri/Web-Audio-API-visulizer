@@ -3,7 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Environment } from '@react-three/drei';
 import * as THREE from 'three';
 import CubeOne from './cubes/cubeOne';
-
+import CubeTwo from './cubes/cubeTwo';
 function Modelone() {
 
     return (
@@ -13,7 +13,8 @@ function Modelone() {
                 <OrbitControls enableZoom={false} />
                 <ambientLight intensity={1} />
                 <Environment preset="night" />
-                <CubeOne />
+                <CubeOne position={[2, 0, 0]} />
+                <CubeTwo />
             </Canvas>
 
         </div >
