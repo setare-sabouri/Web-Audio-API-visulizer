@@ -1,10 +1,10 @@
 import './App.css';
-import ModelOne from './Models/ModelOne';
+import SectionOne from './components/sectionOne';
 
 function App() {
   return (
     <>
-      <ModelOne />
+      <SectionOne />
     </>
   );
 }
