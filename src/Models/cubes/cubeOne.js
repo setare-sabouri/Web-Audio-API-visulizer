@@ -9,7 +9,7 @@ function CubeOne() {
         color: '#ffffff',
         transparent: true,
         opacity: 0.8,
-        metalness: 0.8,
+        metalness: 0.9,
         roughness: 0,
         transmission: 0.1,
         ior: 1,

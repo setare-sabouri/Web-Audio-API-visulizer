@@ -12,7 +12,7 @@ function Modelone() {
                 <spotLight intensity={0.4} angle={0.2} penumbra={1} position={[0, 0, 2]} castShadow />
                 <OrbitControls enableZoom={false} />
                 <ambientLight intensity={1} />
-                <Environment preset="city" />
+                <Environment preset="night" />
                 <CubeOne />
             </Canvas>
 
