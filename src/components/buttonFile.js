@@ -23,7 +23,6 @@ function AudioUploader({ onFileChange }) {
                 style={{ display: 'none' }}
                 onChange={handleFileChange}
             />
-            <button onClick={handleButtonClick}>Upload Audio</button>
         </div>
     );
 }

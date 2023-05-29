@@ -1,11 +1,11 @@
 import './App.css';
-
-import SectionOne from './components/sectionOne';
+import WaveComponent from './components/camera';
 function App() {
 
   return (
     <>
-      <SectionOne />
+      <h1>Wave Component Example</h1>
+      <WaveComponent />
     </>
   );
 }
