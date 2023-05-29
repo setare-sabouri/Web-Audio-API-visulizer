@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-
+import './sectionOne.css'
 const CameraComponent = () => {
     const canvasRef = useRef(null);
 
@@ -68,7 +68,7 @@ const CameraComponent = () => {
         };
     }, []);
 
-    return <canvas ref={canvasRef} height="500" width="500"></canvas>;
+    return <canvas ref={canvasRef} className='canvas'></canvas>;
 };
 
 export default CameraComponent;

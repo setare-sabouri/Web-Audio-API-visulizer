@@ -3,3 +3,13 @@
     z-index: 2;
     background-color: transparent;
 }
+
+.container {
+    width: 100vw;
+    height: 100vh;
+}
+
+.canvas {
+    height: 90%;
+    width: 90%;
+}
