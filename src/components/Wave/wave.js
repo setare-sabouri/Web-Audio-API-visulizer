@@ -11,12 +11,15 @@ const WaveComponent = () => {
 
         const startVisualization = async () => {
             try {
+                //-------Analyser Setup----
+
                 mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
                 audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 analyser = audioContext.createAnalyser();
-
                 const source = audioContext.createMediaStreamSource(mediaStream);
                 source.connect(analyser);
+
+                //-------------------------
 
                 const canvas = canvasRef.current;
                 const canvasContext = canvas.getContext('2d');
@@ -29,22 +32,25 @@ const WaveComponent = () => {
                     analyser.getByteFrequencyData(dataArray);
 
                     canvasContext.clearRect(0, 0, width, height);
-                    canvasContext.fillStyle = 'rgba(0, 0, 0, 0.5)';
+                    canvasContext.fillStyle = '#602060';
                     canvasContext.fillRect(0, 0, width, height);
 
-                    const barWidth = (width / bufferLength) * 2.5;
+                    const barWidth = (width / bufferLength) * 10;
                     let x = 0;
+
+                    //------------- to draw bars ------------------- 
 
                     for (let i = 0; i < bufferLength; i++) {
                         const barHeight = (dataArray[i] / 255) * height;
 
-                        canvasContext.fillStyle = `rgb(${barHeight + 100},50,50)`;
+                        canvasContext.fillStyle = '#ecc6ec';
                         canvasContext.fillRect(x, height - barHeight / 2, barWidth, barHeight / 2);
 
                         x += barWidth + 1;
                     }
-
                     animationFrameId = requestAnimationFrame(draw);
+
+                    //-----------------------------------------------
                 };
 
                 draw();
