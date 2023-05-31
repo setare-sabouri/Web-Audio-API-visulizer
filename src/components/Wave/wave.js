@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import './sectionOne.css'
-const CameraComponent = () => {
+import './wave.css'
+const WaveComponent = () => {
     const canvasRef = useRef(null);
 
     useEffect(() => {
@@ -68,7 +68,11 @@ const CameraComponent = () => {
         };
     }, []);
 
-    return <canvas ref={canvasRef} className='canvas'></canvas>;
+    return (
+        <div className='waveContainer'>
+            <canvas ref={canvasRef} className='canvas'></canvas>;
+        </div>
+    )
 };
 
-export default CameraComponent;
+export default WaveComponent;

@@ -4,10 +4,15 @@
     background-color: transparent;
 }
 
-.container {
+.waveContainer {
     width: 100vw;
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
+
 
 .canvas {
     height: 90%;
