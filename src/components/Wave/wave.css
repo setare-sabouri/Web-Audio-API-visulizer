@@ -1,9 +1,3 @@
-.description-one {
-    position: absolute;
-    z-index: 2;
-    background-color: transparent;
-}
-
 .waveContainer {
     width: 100vw;
     height: 100vh;
@@ -13,8 +7,7 @@
 
 }
 
-
 .canvas {
-    height: 90%;
+    height: 95%;
     width: 90%;
 }
