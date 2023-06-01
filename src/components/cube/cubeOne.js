@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import './cube.css'
-const CubeComponent = ({ analyser }) => {
+const CubeComponent = ({ analyser, XPo }) => {
     const canvasRef = useRef(null);
 
     useEffect(() => {
@@ -40,7 +40,7 @@ const CubeComponent = ({ analyser }) => {
             cube.rotation.x += 0.01;
             cube.rotation.y += 0.01;
             cube.scale.set(1 + average / 100, 1 + average / 100, 1 + average / 100);
-
+            cube.position.x = XPo
             renderer.render(scene, camera);
         }
 
