@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-const CubeComponent = () => {
+const CubeComponent = ({ analyser }) => {
     const canvasRef = useRef(null);
 
     useEffect(() => {
@@ -28,10 +28,19 @@ const CubeComponent = () => {
         const cube = new THREE.Mesh(geometry, material);
         scene.add(cube);
 
+        const dataArray = new Uint8Array(analyser.frequencyBinCount);
+
         function animate() {
             requestAnimationFrame(animate);
+
+            analyser.getByteFrequencyData(dataArray);
+
+            const average = getAverageVolume(dataArray);
+
             cube.rotation.x += 0.01;
             cube.rotation.y += 0.01;
+            cube.scale.set(1 + average / 100, 1 + average / 100, 1 + average / 100);
+
             renderer.render(scene, camera);
         }
 
@@ -40,10 +49,21 @@ const CubeComponent = () => {
         return () => {
             canvasRef.current.removeChild(renderer.domElement);
         };
-    }, []);
+    }, [analyser]);
+
+    // Function to calculate the average volume from the frequency data
+    function getAverageVolume(array) {
+        let values = 0;
+        const length = array.length;
+
+        for (let i = 0; i < length; i++) {
+            values += array[i];
+        }
+
+        return values / length;
+    }
 
     return <div ref={canvasRef} className="cube-container" />;
 };
 
 export default CubeComponent;
-

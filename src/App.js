@@ -42,7 +42,7 @@ function App() {
   return (
     <>
       {analyser && <WaveComponent analyser={analyser} />}
-      <CubeComponent />
+      {analyser && <CubeComponent analyser={analyser} />}
     </>
   );
 }
