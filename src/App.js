@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './App.css';
 import WaveComponent from './components/Wave/wave';
-import CubeComponent from './components/cubeOne';
+import CubeComponent from './components/cube/cubeOne';
 function App() {
   const [analyser, setAnalyser] = useState(null);
   const mediaStreamRef = useRef(null);

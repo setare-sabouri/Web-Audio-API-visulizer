@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-
+import './cube.css'
 const CubeComponent = ({ analyser }) => {
     const canvasRef = useRef(null);
 

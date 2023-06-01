@@ -22,7 +22,7 @@ const WaveComponent = ({ analyser }) => {
             analyser.getByteFrequencyData(dataArray);
 
             canvasContext.clearRect(0, 0, width, height);
-            canvasContext.fillStyle = '#602060';
+            canvasContext.fillStyle = 'rgba(0, 0, 0, 0.5)';
             canvasContext.fillRect(0, 0, width, height);
 
             const barWidth = (width / bufferLength) * 10;
