@@ -25,19 +25,21 @@ const WaveComponent = ({ analyser }) => {
             canvasContext.fillStyle = 'rgba(0, 0, 0, 0.5)';
             canvasContext.fillRect(0, 0, width, height);
 
-            const barWidth = (width / bufferLength) * 10;
-            let x = 0;
+            const xStep = (width * pixelRatio) / bufferLength;
+            const amplitude = height / 2;
 
-            //------------- to draw bars -------------------
+            canvasContext.strokeStyle = '#ecc6ec';
+            canvasContext.lineWidth = 2;
+            canvasContext.beginPath();
 
             for (let i = 0; i < bufferLength; i++) {
-                const barHeight = (dataArray[i] / 255) * height;
-                canvasContext.strokeStyle = '#ecc6ec';
-                canvasContext.lineWidth = 2;
-                canvasContext.strokeRect(x, height - barHeight / 2, barWidth, barHeight / 2);
-
-                x += barWidth + 1;
+                const x = i * xStep;
+                const y = amplitude + (dataArray[i] / 255) * amplitude * Math.sin((i * 2 * Math.PI) / bufferLength);
+                canvasContext.lineTo(x, y);
             }
+
+            canvasContext.stroke();
+            canvasContext.closePath();
 
             requestAnimationFrame(draw);
         };
@@ -46,8 +48,8 @@ const WaveComponent = ({ analyser }) => {
     }, [analyser]);
 
     return (
-        <div className='waveContainer'>
-            <canvas ref={canvasRef} className='canvas'></canvas>
+        <div className="waveContainer">
+            <canvas ref={canvasRef} className="canvas"></canvas>
         </div>
     );
 };

@@ -13,12 +13,12 @@ function App() {
     const initializeAnalyser = async () => {
       try {
         const mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        mediaStreamRef.current = mediaStream;
         audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const analyser = audioContext.createAnalyser();
         const source = audioContext.createMediaStreamSource(mediaStream);
+        const analyser = audioContext.createAnalyser();
         source.connect(analyser);
         setAnalyser(analyser);
+        mediaStreamRef.current = mediaStream;
       } catch (error) {
         console.log(error.message);
       }
