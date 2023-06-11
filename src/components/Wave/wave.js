@@ -27,15 +27,21 @@ const WaveComponent = ({ analyser }) => {
 
             const xStep = (width * pixelRatio) / bufferLength;
             const amplitude = height / 2;
+            const curveTightness = 0.2; // Adjust this value to control the circularity
 
             canvasContext.strokeStyle = '#ecc6ec';
             canvasContext.lineWidth = 2;
             canvasContext.beginPath();
+            canvasContext.moveTo(0, amplitude);
 
             for (let i = 0; i < bufferLength; i++) {
                 const x = i * xStep;
                 const y = amplitude + (dataArray[i] / 255) * amplitude * Math.sin((i * 2 * Math.PI) / bufferLength);
-                canvasContext.lineTo(x, y);
+                const prevX = (i - 1) * xStep;
+                const prevY = amplitude + (dataArray[i - 1] / 255) * amplitude * Math.sin(((i - 1) * 2 * Math.PI) / bufferLength);
+                const controlX = prevX + (x - prevX) * curveTightness;
+                const controlY = prevY + (y - prevY) * curveTightness;
+                canvasContext.bezierCurveTo(controlX, controlY, controlX, controlY, x, y);
             }
 
             canvasContext.stroke();
