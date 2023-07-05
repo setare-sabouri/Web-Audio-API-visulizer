@@ -50,6 +50,13 @@ THREE.ColorManagement.enabled = false
 
 // Debug
 const gui = new dat.GUI()
+// const parameters = {
+//     dynamicColor: 0xffffff
+// }
+
+// gui.addColor(parameters, 'dynamicColor').onChange(() => {
+
+// })
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -58,18 +65,20 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 const axesHelper = new THREE.AxesHelper(2)
 scene.add(axesHelper)
+
+
+
 /**
  * Textures
  */
 const textureLoader = new THREE.TextureLoader()
-
 const matCapTextureText = textureLoader.load('/textures/matcaps/3.png')
 const matCapTextureObjs = textureLoader.load('/textures/matcaps/7.png')
-
 const MatCapmaterialText = new THREE.MeshMatcapMaterial({
-    matcap: matCapTextureText
+    matcap: matCapTextureText,
+    color: 0xffffff
 })
-
+// console.log(MatCapmaterialText);
 const MatCapmaterialObjs = new THREE.MeshMatcapMaterial({
     matcap: matCapTextureObjs
 })
@@ -77,32 +86,33 @@ const MatCapmaterialObjs = new THREE.MeshMatcapMaterial({
 /**
  * Font setup
  */
-
+let textMesh;
 const fontLoader = new FontLoader()
-fontLoader.load(
-    '/fonts/optimer_bold.typeface.json',
-    (font) => {
-        const textGeometry = new TextGeometry('Audio',
-            {
-                font: font,
-                size: 0.5,
-                height: 0.2,
-                curveSegments: 5,
-                bevelEnabled: true,
-                bevelThickness: 0.03,
-                bevelSize: 0.02,
-                bevelOffset: 0,
-                bevelSegments: 4
+fontLoader.load('/fonts/optimer_bold.typeface.json', (font) => {
+    const textGeometry = new TextGeometry('Audio',
+        {
+            font: font,
+            size: 0.5,
+            height: 0.2,
+            curveSegments: 5,
+            bevelEnabled: true,
+            bevelThickness: 0.03,
+            bevelSize: 0.02,
+            bevelOffset: 0,
+            bevelSegments: 4
 
-            }
-        )
-        textGeometry.center()
-
-        const text = new THREE.Mesh(textGeometry, MatCapmaterialText)
-        scene.add(text)
-    }
+        }
+    )
+    textGeometry.center()
+    const text = new THREE.Mesh(textGeometry, MatCapmaterialText)
+    scene.add(text)
+    textMesh = text
+    LoadTextMesh()
+}
 )
-
+const LoadTextMesh = () => {
+    (textMesh ? console.log(textMesh) : LoadTextMesh)
+}
 /**
  * Objects
  */
@@ -184,7 +194,6 @@ const updateDonutScale = () => {
             const scale = (frequencyValue ? (frequencyValue * scaleMultiplier) : 0.5);
             donut.scale.set(scale, scale, scale);
         }
-        console.log(analyser);
     }
 };
 
