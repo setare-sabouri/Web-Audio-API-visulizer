@@ -7,25 +7,8 @@ import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 
 //analyser
 
-
-
 let analyser = null;
 const mediaStreamRef = { current: null };
-
-// const initializeAnalyser = async () => {
-//     try {
-//         const mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-//         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-//         const source = audioContext.createMediaStreamSource(mediaStream);
-//         analyser = audioContext.createAnalyser();
-//         source.connect(analyser);
-//         mediaStreamRef.current = mediaStream;
-
-//     } catch (error) {
-//         console.log(error.message);
-//     }
-// };
-
 
 const audioFileInput = document.getElementById('audio');
 
