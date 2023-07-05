@@ -50,9 +50,11 @@ THREE.ColorManagement.enabled = false
 
 // Debug
 const gui = new dat.GUI()
+
 const parameters = {
     textColor: 0xffffff,
-    objectsColor: 0xffffff
+    objectsColor: 0xffffff,
+    textSize: 0.5
 }
 
 
@@ -91,7 +93,7 @@ fontLoader.load('/fonts/optimer_bold.typeface.json', (font) => {
     const textGeometry = new TextGeometry('Audio',
         {
             font: font,
-            size: 0.5,
+            size: parameters.textSize,
             height: 0.2,
             curveSegments: 5,
             bevelEnabled: true,
@@ -116,7 +118,11 @@ const LoadTextMesh = () => {
 gui.addColor(parameters, 'textColor').onChange(() => {
     textMesh.material.color.set(parameters.textColor)
 }).name('Text Color')
-
+gui.add(parameters, 'textSize').min(0.5).max(2).onChange((value) => {
+    textMesh.geometry.parameters.size = value
+    console.log(textMesh.geometry.parameters.size);
+    textMesh.needsUpdate = true
+})
 
 /**
  * Objects
