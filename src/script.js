@@ -46,6 +46,8 @@ THREE.ColorManagement.enabled = false
 /**
  * Base
  */
+
+
 // Debug
 const gui = new dat.GUI()
 
@@ -60,10 +62,18 @@ scene.add(axesHelper)
  * Textures
  */
 const textureLoader = new THREE.TextureLoader()
-const matCapTexture = textureLoader.load('/textures/matcaps/4.png')
-const MatCapmaterial = new THREE.MeshMatcapMaterial({
-    matcap: matCapTexture
+
+const matCapTextureText = textureLoader.load('/textures/matcaps/3.png')
+const matCapTextureObjs = textureLoader.load('/textures/matcaps/7.png')
+
+const MatCapmaterialText = new THREE.MeshMatcapMaterial({
+    matcap: matCapTextureText
 })
+
+const MatCapmaterialObjs = new THREE.MeshMatcapMaterial({
+    matcap: matCapTextureObjs
+})
+
 /**
  * Font setup
  */
@@ -88,7 +98,7 @@ fontLoader.load(
         )
         textGeometry.center()
 
-        const text = new THREE.Mesh(textGeometry, MatCapmaterial)
+        const text = new THREE.Mesh(textGeometry, MatCapmaterialText)
         scene.add(text)
     }
 )
@@ -98,7 +108,7 @@ fontLoader.load(
  */
 const donutGeo = new THREE.TorusGeometry(0.5, 0.3, 20, 45)
 for (let i = 0; i < 50; i++) {
-    const donut = new THREE.Mesh(donutGeo, MatCapmaterial)
+    const donut = new THREE.Mesh(donutGeo, MatCapmaterialObjs)
     donut.position.set((Math.random() - 0.5) * 15, (Math.random() - 0.5) * 10, ((Math.random() - 0.5) * 15))
     donut.rotation.set((Math.random() * Math.PI), (Math.random() * Math.PI), (Math.random() * Math.PI))
     donut.name = 'donut'
