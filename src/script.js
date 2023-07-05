@@ -80,7 +80,7 @@ const MatCapmaterialObjs = new THREE.MeshMatcapMaterial({
 
 const fontLoader = new FontLoader()
 fontLoader.load(
-    '/fonts/helvetiker_regular.typeface.json',
+    '/fonts/optimer_bold.typeface.json',
     (font) => {
         const textGeometry = new TextGeometry('Audio',
             {
