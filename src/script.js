@@ -50,13 +50,11 @@ THREE.ColorManagement.enabled = false
 
 // Debug
 const gui = new dat.GUI()
-// const parameters = {
-//     dynamicColor: 0xffffff
-// }
+const parameters = {
+    textColor: 0xffffff,
+    objectsColor: 0xffffff
+}
 
-// gui.addColor(parameters, 'dynamicColor').onChange(() => {
-
-// })
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -74,13 +72,14 @@ scene.add(axesHelper)
 const textureLoader = new THREE.TextureLoader()
 const matCapTextureText = textureLoader.load('/textures/matcaps/3.png')
 const matCapTextureObjs = textureLoader.load('/textures/matcaps/7.png')
-const MatCapmaterialText = new THREE.MeshMatcapMaterial({
+const textMatCapmaterial = new THREE.MeshMatcapMaterial({
     matcap: matCapTextureText,
-    color: 0xffffff
+    color: parameters.textColor
 })
-// console.log(MatCapmaterialText);
-const MatCapmaterialObjs = new THREE.MeshMatcapMaterial({
-    matcap: matCapTextureObjs
+
+const objectsMatCapmaterial = new THREE.MeshMatcapMaterial({
+    matcap: matCapTextureObjs,
+    color: parameters.objectsColor
 })
 
 /**
@@ -104,7 +103,7 @@ fontLoader.load('/fonts/optimer_bold.typeface.json', (font) => {
         }
     )
     textGeometry.center()
-    const text = new THREE.Mesh(textGeometry, MatCapmaterialText)
+    const text = new THREE.Mesh(textGeometry, textMatCapmaterial)
     scene.add(text)
     textMesh = text
     LoadTextMesh()
@@ -113,22 +112,33 @@ fontLoader.load('/fonts/optimer_bold.typeface.json', (font) => {
 const LoadTextMesh = () => {
     (textMesh ? console.log(textMesh) : LoadTextMesh)
 }
+
+gui.addColor(parameters, 'textColor').onChange(() => {
+    textMesh.material.color.set(parameters.textColor)
+}).name('Text Color')
+
+
 /**
  * Objects
  */
 const donutGeo = new THREE.TorusGeometry(0.5, 0.3, 20, 45)
-for (let i = 0; i < 50; i++) {
-    const donut = new THREE.Mesh(donutGeo, MatCapmaterialObjs)
-    donut.position.set((Math.random() - 0.5) * 15, (Math.random() - 0.5) * 10, ((Math.random() - 0.5) * 15))
-    donut.rotation.set((Math.random() * Math.PI), (Math.random() * Math.PI), (Math.random() * Math.PI))
-    donut.name = 'donut'
+const count = 50
+const donut = Array(count)
+for (let i = 0; i < count; i++) {
+    donut[i] = new THREE.Mesh(donutGeo, objectsMatCapmaterial)
+    donut[i].position.set((Math.random() - 0.5) * 15, (Math.random() - 0.5) * 10, ((Math.random() - 0.5) * 15))
+    donut[i].rotation.set((Math.random() * Math.PI), (Math.random() * Math.PI), (Math.random() * Math.PI))
+    donut[i].name = 'donut'
     const scale = Math.random()
-    donut.scale.set(scale, scale, scale)
-    scene.add(donut)
+    donut[i].scale.set(scale, scale, scale)
+    scene.add(donut[i])
 }
-/**
- * gui
- */
+
+gui.addColor(parameters, 'objectsColor').onChange(() => {
+    for (let i = 0; i < count; i++) {
+        donut[i].material.color.set(parameters.objectsColor)
+    }
+}).name('Objects Color')
 
 
 /**
