@@ -1,24 +1,12 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import * as dat from 'lil-gui'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 import { initializeAnalyser, analyser } from './scripts/analyser'
+import { gui, parameters } from './scripts/debug'
 
 initializeAnalyser();
 THREE.ColorManagement.enabled = false
-
-
-// Debug
-const gui = new dat.GUI()
-
-const parameters = {
-    textColor: 0xffffff,
-    objectsColor: 0xffffff,
-    textSize: 0.5,
-    lightDircColor: 0xffffff
-}
-
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -38,29 +26,31 @@ const matCapTextureObjs = textureLoader.load('/textures/matcaps/7.png')
 /**
  * lights
  */
-const ambLight = new THREE.AmbientLight(0xffffff, 0.5)
-const dirctLight = new THREE.DirectionalLight(0x0000ff, 0.3)
-const HemiLight = new THREE.HemisphereLight(0xff0000, 0x0000ff, 0.3)
-dirctLight.position.set(0, 2, 0)
-scene.add(ambLight, dirctLight, HemiLight)
+export const lights = {
+    ambLight: new THREE.AmbientLight(0xffffff, 0.5),
+    dirctLight: new THREE.DirectionalLight(0x0000ff, 0.3),
+    HemiLight: new THREE.HemisphereLight(0xff0000, 0x0000ff, 0.3)
+}
+
+lights.dirctLight.position.set(0, 2, 0)
+scene.add(lights.ambLight, lights.dirctLight, lights.HemiLight)
 
 
 //helpers
-const HemiHelpLight = new THREE.HemisphereLightHelper(HemiLight, 0.2)
-const directHelpLight = new THREE.DirectionalLightHelper(dirctLight)
+const HemiHelpLight = new THREE.HemisphereLightHelper(lights.HemiLight, 0.2)
+const directHelpLight = new THREE.DirectionalLightHelper(lights.dirctLight)
 scene.add(HemiHelpLight, directHelpLight)
 
 
-gui.add(ambLight, 'intensity').min(0).max(3).name("ambient light Intensity")
-gui.add(dirctLight, 'intensity', 0, 3).name("directional light intensity")
-gui.add(HemiLight.position, 'x', -2, 2).name('X light')
-gui.add(HemiLight.position, 'y', -2, 2).name('Y light')
-gui.add(HemiLight.position, 'z', -2, 3).name('Z light')
+gui.add(lights.ambLight, 'intensity').min(0).max(3).name("ambient light Intensity")
+gui.add(lights.dirctLight, 'intensity', 0, 3).name("directional light intensity")
+gui.add(lights.HemiLight.position, 'x', -2, 2).name('X light')
+gui.add(lights.HemiLight.position, 'y', -2, 2).name('Y light')
+gui.add(lights.HemiLight.position, 'z', -2, 3).name('Z light')
 gui.addColor(parameters, 'lightDircColor').onChange(() => {
-    dirctLight.color.set(parameters.lightDircColor)
+    lights.dirctLight.color.set(parameters.lightDircColor)
 }).name('direct color')
 
-console.log(dirctLight);
 /**
  * Font setup
  */
