@@ -11,10 +11,12 @@ THREE.ColorManagement.enabled = false
 
 // Debug
 const gui = new dat.GUI()
+
 const parameters = {
     textColor: 0xffffff,
     objectsColor: 0xffffff,
-    textSize: 0.5
+    textSize: 0.5,
+    lightDircColor: 0xffffff
 }
 
 
@@ -26,27 +28,47 @@ export const scene = new THREE.Scene()
 const axesHelper = new THREE.AxesHelper(2)
 scene.add(axesHelper)
 
-
-
 /**
  * Textures
  */
 const textureLoader = new THREE.TextureLoader()
 const matCapTextureText = textureLoader.load('/textures/matcaps/7.png')
 const matCapTextureObjs = textureLoader.load('/textures/matcaps/7.png')
-const textMatCapmaterial = new THREE.MeshMatcapMaterial({
-    matcap: matCapTextureText,
-    color: parameters.textColor
-})
 
-const objectsMatCapmaterial = new THREE.MeshMatcapMaterial({
-    matcap: matCapTextureObjs,
-    color: parameters.objectsColor
-})
+/**
+ * lights
+ */
+const ambLight = new THREE.AmbientLight(0xffffff, 0.5)
+const dirctLight = new THREE.DirectionalLight(0x0000ff, 0.3)
+const HemiLight = new THREE.HemisphereLight(0xff0000, 0x0000ff, 0.3)
 
+dirctLight.position.set(0, 2, 0)
+//helpers
+const HemiHelpLight = new THREE.HemisphereLightHelper(HemiLight, 0.2)
+// const ambHelpLight = new THREE.ambientLi
+
+
+
+
+scene.add(ambLight, dirctLight, HemiLight, HemiHelpLight)
+gui.add(ambLight, 'intensity').min(0).max(3).name("ambient light Intensity")
+gui.add(dirctLight, 'intensity', 0, 3).name("directional light intensity")
+gui.add(HemiLight.position, 'x', -2, 2).name('X light')
+gui.add(HemiLight.position, 'y', -2, 2).name('Y light')
+gui.add(HemiLight.position, 'z', -2, 3).name('Z light')
+gui.addColor(parameters, 'lightDircColor').onChange(() => {
+    dirctLight.color.set(parameters.lightDircColor)
+}).name('direct color')
+
+console.log(dirctLight);
 /**
  * Font setup
  */
+
+const textMatCapmaterial = new THREE.MeshStandardMaterial({
+    map: matCapTextureText,
+    color: parameters.textColor
+})
 let textMesh;
 const fontLoader = new FontLoader()
 fontLoader.load('/fonts/optimer_bold.typeface.json', (font) => {
@@ -74,7 +96,6 @@ fontLoader.load('/fonts/optimer_bold.typeface.json', (font) => {
 const LoadTextMesh = () => {
     (textMesh ? console.log(textMesh) : LoadTextMesh)
 
-
 }
 
 gui.addColor(parameters, 'textColor').onChange(() => {
@@ -86,6 +107,11 @@ gui.addColor(parameters, 'textColor').onChange(() => {
 /**
  * Objects
  */
+const objectsMatCapmaterial = new THREE.MeshStandardMaterial({
+    map: matCapTextureObjs,
+    color: parameters.objectsColor
+})
+
 const donutGeo = new THREE.TorusGeometry(0.5, 0.3, 20, 45)
 const count = 50
 const donut = Array(count)

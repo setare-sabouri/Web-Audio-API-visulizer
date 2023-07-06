@@ -19,7 +19,6 @@ export const initializeAnalyser = async () => {
     }
 };
 
-audioFileInput.addEventListener('change', initializeAnalyser);
 
 window.addEventListener('beforeunload', () => {
     if (analyser) {
