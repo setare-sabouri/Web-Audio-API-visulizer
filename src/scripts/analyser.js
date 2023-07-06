@@ -1,5 +1,4 @@
 //analyser
-
 export let analyser = null;
 const mediaStreamRef = { current: null };
 

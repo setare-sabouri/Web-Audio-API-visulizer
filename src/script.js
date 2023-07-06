@@ -7,14 +7,10 @@ import { initializeAnalyser, analyser } from './scripts/analyser'
 
 initializeAnalyser();
 THREE.ColorManagement.enabled = false
-/**
- * Base
- */
 
 
 // Debug
 const gui = new dat.GUI()
-
 const parameters = {
     textColor: 0xffffff,
     objectsColor: 0xffffff,
@@ -26,7 +22,7 @@ const parameters = {
 const canvas = document.querySelector('canvas.webgl')
 
 // Scene
-const scene = new THREE.Scene()
+export const scene = new THREE.Scene()
 const axesHelper = new THREE.AxesHelper(2)
 scene.add(axesHelper)
 
@@ -86,15 +82,6 @@ gui.addColor(parameters, 'textColor').onChange(() => {
 }).name('Text Color')
 
 
-
-
-// size gui not working
-// gui.add(parameters, 'textSize').min(0.5).max(2).onChange((value) => {
-//     textMesh.geometry.parameters.size = value
-//     console.log(textMesh.geometry.parameters.size);
-//     textMesh.needsUpdate = true
-//     textMesh.updateMatrix();
-// })
 
 /**
  * Objects
@@ -165,7 +152,7 @@ renderer.outputColorSpace = THREE.LinearSRGBColorSpace
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
-const updateDonutScale = () => {
+export const updateDonutScale = () => {
     if (analyser) {
         const dataArray = new Uint8Array(analyser.frequencyBinCount);
         analyser.getByteFrequencyData(dataArray);
@@ -195,12 +182,7 @@ const tick = () => {
     // Render
     renderer.render(scene, camera)
 
-    //
-
-
     updateDonutScale();
-
-
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)
 }
