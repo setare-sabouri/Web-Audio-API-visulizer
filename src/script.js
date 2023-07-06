@@ -41,16 +41,16 @@ const matCapTextureObjs = textureLoader.load('/textures/matcaps/7.png')
 const ambLight = new THREE.AmbientLight(0xffffff, 0.5)
 const dirctLight = new THREE.DirectionalLight(0x0000ff, 0.3)
 const HemiLight = new THREE.HemisphereLight(0xff0000, 0x0000ff, 0.3)
-
 dirctLight.position.set(0, 2, 0)
+scene.add(ambLight, dirctLight, HemiLight)
+
+
 //helpers
 const HemiHelpLight = new THREE.HemisphereLightHelper(HemiLight, 0.2)
-// const ambHelpLight = new THREE.ambientLi
+const directHelpLight = new THREE.DirectionalLightHelper(dirctLight)
+scene.add(HemiHelpLight, directHelpLight)
 
 
-
-
-scene.add(ambLight, dirctLight, HemiLight, HemiHelpLight)
 gui.add(ambLight, 'intensity').min(0).max(3).name("ambient light Intensity")
 gui.add(dirctLight, 'intensity', 0, 3).name("directional light intensity")
 gui.add(HemiLight.position, 'x', -2, 2).name('X light')
