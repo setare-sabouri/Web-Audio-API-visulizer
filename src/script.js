@@ -3,45 +3,9 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
+import { initializeAnalyser, analyser } from './scripts/analyser'
 
-
-//analyser
-
-let analyser = null;
-const mediaStreamRef = { current: null };
-
-const audioFileInput = document.getElementById('audio');
-
-const initializeAnalyser = async () => {
-    try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const audioElement = audioFileInput
-        const source = audioContext.createMediaElementSource(audioElement);
-        analyser = audioContext.createAnalyser();
-        source.connect(analyser);
-        analyser.connect(audioContext.destination);
-        await audioElement.play();
-        mediaStreamRef.current = audioElement;
-
-    } catch (error) {
-        console.log(error.message);
-    }
-};
-
-audioFileInput.addEventListener('change', initializeAnalyser);
 initializeAnalyser();
-
-window.addEventListener('beforeunload', () => {
-    if (analyser) {
-        analyser.context.close();
-    }
-    if (mediaStreamRef.current) {
-        mediaStreamRef.current.getTracks().forEach((track) => track.stop());
-    }
-});
-
-
-
 THREE.ColorManagement.enabled = false
 /**
  * Base
@@ -72,7 +36,7 @@ scene.add(axesHelper)
  * Textures
  */
 const textureLoader = new THREE.TextureLoader()
-const matCapTextureText = textureLoader.load('/textures/matcaps/3.png')
+const matCapTextureText = textureLoader.load('/textures/matcaps/7.png')
 const matCapTextureObjs = textureLoader.load('/textures/matcaps/7.png')
 const textMatCapmaterial = new THREE.MeshMatcapMaterial({
     matcap: matCapTextureText,
@@ -100,7 +64,7 @@ fontLoader.load('/fonts/optimer_bold.typeface.json', (font) => {
             bevelThickness: 0.03,
             bevelSize: 0.02,
             bevelOffset: 0,
-            bevelSegments: 4
+            bevelSegments: 4,
 
         }
     )
@@ -113,16 +77,24 @@ fontLoader.load('/fonts/optimer_bold.typeface.json', (font) => {
 )
 const LoadTextMesh = () => {
     (textMesh ? console.log(textMesh) : LoadTextMesh)
+
+
 }
 
 gui.addColor(parameters, 'textColor').onChange(() => {
     textMesh.material.color.set(parameters.textColor)
 }).name('Text Color')
-gui.add(parameters, 'textSize').min(0.5).max(2).onChange((value) => {
-    textMesh.geometry.parameters.size = value
-    console.log(textMesh.geometry.parameters.size);
-    textMesh.needsUpdate = true
-})
+
+
+
+
+// size gui not working
+// gui.add(parameters, 'textSize').min(0.5).max(2).onChange((value) => {
+//     textMesh.geometry.parameters.size = value
+//     console.log(textMesh.geometry.parameters.size);
+//     textMesh.needsUpdate = true
+//     textMesh.updateMatrix();
+// })
 
 /**
  * Objects
@@ -145,6 +117,7 @@ gui.addColor(parameters, 'objectsColor').onChange(() => {
         donut[i].material.color.set(parameters.objectsColor)
     }
 }).name('Objects Color')
+
 
 
 /**
@@ -191,12 +164,6 @@ const renderer = new THREE.WebGLRenderer({
 renderer.outputColorSpace = THREE.LinearSRGBColorSpace
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-
-
-
-
-//
-
 
 const updateDonutScale = () => {
     if (analyser) {
