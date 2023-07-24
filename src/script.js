@@ -4,7 +4,7 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 import { initializeAnalyser, analyser } from './scripts/analyser'
 import { gui, parameters } from './scripts/debug'
-
+import { texturesList } from './scripts/textures'
 initializeAnalyser();
 THREE.ColorManagement.enabled = false
 
@@ -19,9 +19,7 @@ scene.add(axesHelper)
 /**
  * Textures
  */
-const textureLoader = new THREE.TextureLoader()
-const matCapTextureText = textureLoader.load('/textures/matcaps/7.png')
-const matCapTextureObjs = textureLoader.load('/textures/matcaps/7.png')
+
 
 /**
  * lights
@@ -56,7 +54,7 @@ gui.addColor(parameters, 'lightDircColor').onChange(() => {
  */
 
 const textMatCapmaterial = new THREE.MeshStandardMaterial({
-    map: matCapTextureText,
+    map: texturesList.matCapTextureText,
     color: parameters.textColor
 })
 let textMesh;
@@ -98,7 +96,7 @@ gui.addColor(parameters, 'textColor').onChange(() => {
  * Objects
  */
 const objectsMatCapmaterial = new THREE.MeshStandardMaterial({
-    map: matCapTextureObjs,
+    map: texturesList.matCapTextureObjs,
     color: parameters.objectsColor
 })
 
