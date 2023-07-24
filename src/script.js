@@ -5,6 +5,7 @@ import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 import { initializeAnalyser, analyser } from './scripts/analyser'
 import { gui, parameters } from './scripts/debug'
 import { texturesList } from './scripts/textures'
+import { lights } from './scripts/lights'
 initializeAnalyser();
 THREE.ColorManagement.enabled = false
 
@@ -16,21 +17,7 @@ export const scene = new THREE.Scene()
 const axesHelper = new THREE.AxesHelper(2)
 scene.add(axesHelper)
 
-/**
- * Textures
- */
-
-
-/**
- * lights
- */
-export const lights = {
-    ambLight: new THREE.AmbientLight(0xffffff, 0.5),
-    dirctLight: new THREE.DirectionalLight(0x0000ff, 0.3),
-    HemiLight: new THREE.HemisphereLight(0xff0000, 0x0000ff, 0.3)
-}
-
-lights.dirctLight.position.set(0, 2, 0)
+//lights
 scene.add(lights.ambLight, lights.dirctLight, lights.HemiLight)
 
 
@@ -39,15 +26,6 @@ const HemiHelpLight = new THREE.HemisphereLightHelper(lights.HemiLight, 0.2)
 const directHelpLight = new THREE.DirectionalLightHelper(lights.dirctLight)
 scene.add(HemiHelpLight, directHelpLight)
 
-
-gui.add(lights.ambLight, 'intensity').min(0).max(3).name("ambient light Intensity")
-gui.add(lights.dirctLight, 'intensity', 0, 3).name("directional light intensity")
-gui.add(lights.HemiLight.position, 'x', -2, 2).name('X light')
-gui.add(lights.HemiLight.position, 'y', -2, 2).name('Y light')
-gui.add(lights.HemiLight.position, 'z', -2, 3).name('Z light')
-gui.addColor(parameters, 'lightDircColor').onChange(() => {
-    lights.dirctLight.color.set(parameters.lightDircColor)
-}).name('direct color')
 
 /**
  * Font setup
@@ -118,7 +96,6 @@ gui.addColor(parameters, 'objectsColor').onChange(() => {
         donut[i].material.color.set(parameters.objectsColor)
     }
 }).name('Objects Color')
-
 
 
 /**
