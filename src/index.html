@@ -7,8 +7,16 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Enter song name and artist"
+    />
+    <button onclick="searchLyrics()">Search</button>
+    <div id="lyricsDisplay"></div>
+
     <script type="module" src="./scripts/api.js"></script>
-    <audio id="audio" src="./au.mp3" controls></audio>
+    <!-- <audio id="audio" src="./au.mp3" controls></audio> -->
     <canvas class="webgl"></canvas>
     <script type="module" src="./script.js"></script>
   </body>
