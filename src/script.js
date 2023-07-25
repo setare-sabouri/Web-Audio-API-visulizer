@@ -1,11 +1,10 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
-import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 import { initializeAnalyser, analyser } from './scripts/analyser'
 import { gui, parameters } from './scripts/debug'
 import { texturesList } from './scripts/textures'
 import { lights } from './scripts/lights'
+import { setText } from './scripts/objects'
 initializeAnalyser();
 THREE.ColorManagement.enabled = false
 
@@ -26,47 +25,19 @@ const HemiHelpLight = new THREE.HemisphereLightHelper(lights.HemiLight, 0.2)
 const directHelpLight = new THREE.DirectionalLightHelper(lights.dirctLight)
 scene.add(HemiHelpLight, directHelpLight)
 
-
-/**
- * Font setup
- */
-
-const textMatCapmaterial = new THREE.MeshStandardMaterial({
-    map: texturesList.matCapTextureText,
-    color: parameters.textColor
-})
-let textMesh;
-const fontLoader = new FontLoader()
-fontLoader.load('/fonts/optimer_bold.typeface.json', (font) => {
-    const textGeometry = new TextGeometry('Audio',
-        {
-            font: font,
-            size: parameters.textSize,
-            height: 0.2,
-            curveSegments: 5,
-            bevelEnabled: true,
-            bevelThickness: 0.03,
-            bevelSize: 0.02,
-            bevelOffset: 0,
-            bevelSegments: 4,
-
-        }
-    )
-    textGeometry.center()
-    const text = new THREE.Mesh(textGeometry, textMatCapmaterial)
-    scene.add(text)
-    textMesh = text
-    LoadTextMesh()
-}
-)
-const LoadTextMesh = () => {
-    (textMesh ? console.log(textMesh) : LoadTextMesh)
-
-}
+let textMesh
+setText().then((readyMesh) => {
+    scene.add(readyMesh)
+    textMesh = readyMesh
+}).catch((error) => {
+    console.error('Error loading textMesh:', error);
+});
 
 gui.addColor(parameters, 'textColor').onChange(() => {
+    console.log(textMesh);
     textMesh.material.color.set(parameters.textColor)
 }).name('Text Color')
+
 
 
 

@@ -38,20 +38,20 @@
 
 
 //--------------------------------------------------------------
-import { getLyrics, getSong } from 'genius-lyrics-api';
+// import { getLyrics, getSong } from 'genius-lyrics-api';
 
-const options = {
-    apiKey: 'tnKBOAFyPC_6zHd7ALcIiCJaGpBZPhRto_ubjUPZB9kkGewNAFhmVhuVEt6qMGLk',
-    title: 'Posthumous Forgiveness',
-    artist: 'Tame Impala',
-    optimizeQuery: true
-};
+// const options = {
+//     apiKey: 'tnKBOAFyPC_6zHd7ALcIiCJaGpBZPhRto_ubjUPZB9kkGewNAFhmVhuVEt6qMGLk',
+//     title: 'Posthumous Forgiveness',
+//     artist: 'Tame Impala',
+//     optimizeQuery: true
+// };
 
-getLyrics(options).then((lyrics) => console.log(lyrics));
+// getLyrics(options).then((lyrics) => console.log(lyrics));
 
 
-getSong(options).then((song) =>
-    console.log(`${song.id} - ${song.title} - ${song.url} - ${song.albumArt} - ${song.lyrics}`)
-);
+// getSong(options).then((song) =>
+//     console.log(`${song.id} - ${song.title} - ${song.url} - ${song.albumArt} - ${song.lyrics}`)
+// );
 
-console.log("object");
+// console.log("object");
