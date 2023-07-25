@@ -26,6 +26,7 @@ const directHelpLight = new THREE.DirectionalLightHelper(lights.dirctLight)
 scene.add(HemiHelpLight, directHelpLight)
 
 let textMesh
+
 setText().then((readyMesh) => {
     scene.add(readyMesh)
     textMesh = readyMesh
@@ -33,10 +34,6 @@ setText().then((readyMesh) => {
     console.error('Error loading textMesh:', error);
 });
 
-gui.addColor(parameters, 'textColor').onChange(() => {
-    console.log(textMesh);
-    textMesh.material.color.set(parameters.textColor)
-}).name('Text Color')
 
 
 
@@ -46,7 +43,7 @@ gui.addColor(parameters, 'textColor').onChange(() => {
  */
 const objectsMatCapmaterial = new THREE.MeshStandardMaterial({
     map: texturesList.matCapTextureObjs,
-    color: parameters.objectsColor
+    color: 0xffffff
 })
 
 const donutGeo = new THREE.TorusGeometry(0.5, 0.3, 20, 45)
@@ -62,11 +59,11 @@ for (let i = 0; i < count; i++) {
     scene.add(donut[i])
 }
 
-gui.addColor(parameters, 'objectsColor').onChange(() => {
-    for (let i = 0; i < count; i++) {
-        donut[i].material.color.set(parameters.objectsColor)
-    }
-}).name('Objects Color')
+// gui.addColor(parameters, 'objectsColor').onChange(() => {
+//     for (let i = 0; i < count; i++) {
+//         donut[i].material.color.set(parameters.objectsColor)
+//     }
+// }).name('Objects Color')
 
 
 /**

@@ -1,6 +1,7 @@
 import * as dat from 'lil-gui'
 // import { lights } from '../script'
 import { lights } from './lights'
+import { setText } from './objects'
 export const gui = new dat.GUI()
 
 export const parameters = {
@@ -20,3 +21,13 @@ gui.add(lights.HemiLight.position, 'z', -2, 3).name('Z light')
 gui.addColor(parameters, 'lightDircColor').onChange(() => {
     lights.dirctLight.color.set(parameters.lightDircColor)
 }).name('direct color')
+
+
+setText().then((textMesh) => {
+    gui.addColor(parameters, 'textColor').onChange(() => {
+        textMesh.material.color.set(parameters.textColor)
+    }).name('Text Color')
+}).catch((error) => {
+    console.error('Error loading textMesh:', error);
+});
+

@@ -9,8 +9,6 @@ const textMatCapmaterial = new THREE.MeshStandardMaterial({
     color: 0xffffff
 })
 
-export let textMesh
-let textGeometry
 
 const fontLoader = new FontLoader()
 
