@@ -1,5 +1,4 @@
 let audio
-
 const APIController = (function () {
 
     const clientId = 'e02fbce704c7472bad5b5bedaad5d8da';
@@ -29,7 +28,9 @@ const APIController = (function () {
 
         const data = await result.json();
         console.log(data);
-        return data.tracks.items[7]; // Assuming you want to display only the first result
+        const tracksWithPreview = data.tracks.items.filter(track => track.preview_url !== null);
+
+        return tracksWithPreview[0]; // Assuming that i  want to display only the first result
     }
 
     return {
