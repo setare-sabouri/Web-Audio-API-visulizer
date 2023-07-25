@@ -19,3 +19,11 @@ body {
 #audio {
     position: absolute;
 }
+
+#songInfo {
+    background-color: salmon;
+}
+
+#playButton {
+    background-color: chartreuse;
+}

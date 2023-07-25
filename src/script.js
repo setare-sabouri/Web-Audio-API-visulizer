@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { initializeAnalyser, analyser } from './scripts/analyser'
-import { gui, parameters } from './scripts/debug'
 import { texturesList } from './scripts/textures'
 import { lights } from './scripts/lights'
 import { setText } from './scripts/objects'
@@ -26,16 +25,12 @@ const directHelpLight = new THREE.DirectionalLightHelper(lights.dirctLight)
 scene.add(HemiHelpLight, directHelpLight)
 
 let textMesh
-
 setText().then((readyMesh) => {
     scene.add(readyMesh)
     textMesh = readyMesh
 }).catch((error) => {
     console.error('Error loading textMesh:', error);
 });
-
-
-
 
 
 /**
@@ -47,8 +42,9 @@ const objectsMatCapmaterial = new THREE.MeshStandardMaterial({
 })
 
 const donutGeo = new THREE.TorusGeometry(0.5, 0.3, 20, 45)
-const count = 50
-const donut = Array(count)
+
+export const count = 50
+export const donut = Array(count)
 for (let i = 0; i < count; i++) {
     donut[i] = new THREE.Mesh(donutGeo, objectsMatCapmaterial)
     donut[i].position.set((Math.random() - 0.5) * 15, (Math.random() - 0.5) * 10, ((Math.random() - 0.5) * 15))
@@ -59,11 +55,7 @@ for (let i = 0; i < count; i++) {
     scene.add(donut[i])
 }
 
-// gui.addColor(parameters, 'objectsColor').onChange(() => {
-//     for (let i = 0; i < count; i++) {
-//         donut[i].material.color.set(parameters.objectsColor)
-//     }
-// }).name('Objects Color')
+
 
 
 /**

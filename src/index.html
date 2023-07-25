@@ -12,12 +12,20 @@
       id="searchInput"
       placeholder="Enter song name and artist"
     />
-    <button onclick="searchLyrics()">Search</button>
-    <div id="lyricsDisplay"></div>
+    <button onclick="searchSong()">Search</button>
 
-    <!-- <audio id="audio" src="./au.mp3" controls></audio> -->
+    <div id="songInfo">
+      <h2>Song Information:</h2>
+      <div id="playButton"></div>
+      <div id="lyrics"></div>
+    </div>
+
     <canvas class="webgl"></canvas>
+
+    <script src="./scripts/api.js"></script>
     <script type="module" src="./script.js"></script>
     <script type="module" src="./scripts/debug.js"></script>
   </body>
 </html>
+
+<!-- <audio id="audio" src="./au.mp3" controls></audio> -->

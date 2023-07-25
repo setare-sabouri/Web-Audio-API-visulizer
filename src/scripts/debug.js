@@ -1,7 +1,7 @@
 import * as dat from 'lil-gui'
-// import { lights } from '../script'
 import { lights } from './lights'
 import { setText } from './objects'
+
 export const gui = new dat.GUI()
 
 export const parameters = {
@@ -27,7 +27,21 @@ setText().then((textMesh) => {
     gui.addColor(parameters, 'textColor').onChange(() => {
         textMesh.material.color.set(parameters.textColor)
     }).name('Text Color')
-}).catch((error) => {
-    console.error('Error loading textMesh:', error);
-});
+})
 
+
+
+
+// gui.addColor(parameters, 'objectsColor').onChange(() => {
+//     for (let i = 0; i < count; i++) {
+//         donut[i].material.color.set(parameters.objectsColor)
+//     }
+// }).name('Objects Color')
+
+
+
+// gui.addColor(parameters, 'objectsColor').onChange(() => {
+//     for (let i = 0; i < count; i++) {
+//         donut[i].material.color.set(parameters.objectsColor)
+//     }
+// }).name('Objects Color')
