@@ -1,3 +1,4 @@
+
 let audio
 const APIController = (function () {
 
@@ -45,6 +46,8 @@ const APIController = (function () {
 
 
 
+
+
 const searchSong = async () => {
     const searchInput = document.getElementById('searchInput').value;
     try {
@@ -52,30 +55,51 @@ const searchSong = async () => {
         const songData = await APIController.searchSong(accessToken, searchInput);
 
         if (songData) {
-            console.log("yes");
-            console.log(songData);
-            console.log("yes");
-
             // Display song information
             document.getElementById('songInfo').innerHTML = `
           <h2>Song Information:</h2>
           <p>Title: ${songData.name}</p>
           <p>Artist: ${songData.artists[0].name}</p>
-          <button onclick="playSong('${songData.preview_url}')">Play</button>
-          <button onclick="stopSong('${audio}')">Stop</button>
-
         `;
-            // Call function to fetch and display lyrics
-            fetchAndDisplayLyrics(songData.name, songData.artists[0].name);
+
+            // Show the control bar when the song starts playing
+            document.getElementById('controlBar').style.display = 'block';
+            // Set the audio source
+            document.getElementById('audioSource').src = songData.preview_url;
+            document.getElementById('audioPlayer').load();
+            audio = null; // Reset audio to avoid multiple audio objects
+
+            // Call the function to update the progress bar
+            updateProgressBar();
         } else {
-            document.getElementById('playButton').innerHTML = '';
             document.getElementById('songInfo').innerHTML = '<p>No results found.</p>';
             document.getElementById('lyrics').innerHTML = '';
+            document.getElementById('controlBar').style.display = 'none';
         }
     } catch (error) {
         console.error(error);
     }
-}
+};
+
+const updateProgressBar = () => {
+    const progressBar = document.getElementById('progressBar');
+    if (audio && !audio.paused) {
+        const progress = (audio.currentTime / audio.duration) * 100;
+        progressBar.value = progress;
+        requestAnimationFrame(updateProgressBar);
+    } else {
+        progressBar.value = 0;
+    }
+};
+
+// Event listener for progress bar click
+document.getElementById('progressContainer').addEventListener('click', (e) => {
+    const progressBar = document.getElementById('progressBar');
+    if (audio && !audio.paused) {
+        const progress = (e.offsetX / progressBar.offsetWidth) * audio.duration;
+        audio.currentTime = progress;
+    }
+});
 
 const playSong = (previewUrl) => {
     if (previewUrl) {
@@ -85,14 +109,16 @@ const playSong = (previewUrl) => {
 
         audio = new Audio(previewUrl);
         audio.play();
+        updateProgressBar();
     }
-}
+};
 
 const stopSong = () => {
     if (audio) {
         audio.pause();
     }
-}
+};
+
 
 
 // const fetchAndDisplayLyrics = async (title, artist) => {

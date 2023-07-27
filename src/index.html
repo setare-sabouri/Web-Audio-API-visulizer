@@ -11,12 +11,21 @@
       type="text"
       id="searchInput"
       placeholder="Enter song name and artist"
+      value="five finger"
     />
     <button onclick="searchSong()">Search</button>
 
+    <div id="controlBar" style="display: none">
+      <audio id="audioPlayer" controls>
+        <source id="audioSource" src="" type="audio/mpeg" />
+      </audio>
+      <div id="progressContainer">
+        <progress id="progressBar" value="0" max="100"></progress>
+      </div>
+    </div>
+
     <div id="songInfo">
       <h2>Song Information:</h2>
-      <div id="playButton"></div>
       <div id="lyrics"></div>
     </div>
 
@@ -27,5 +36,3 @@
     <script type="module" src="./scripts/debug.js"></script>
   </body>
 </html>
-
-<!-- <audio id="audio" src="./au.mp3" controls></audio> -->
