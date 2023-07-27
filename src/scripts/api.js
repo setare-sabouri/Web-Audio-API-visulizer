@@ -1,9 +1,15 @@
 
-let audio
+// import { VITE_CLIENTID, VITE_CLIENTSECRET } from "../script";
 const APIController = (function () {
 
     const clientId = 'e02fbce704c7472bad5b5bedaad5d8da';
     const clientSecret = 'b1b88b7859274db187862925b304e0f7';
+
+
+    // const clientId = VITE_CLIENTID;
+    // const clientSecret = VITE_CLIENTSECRET;
+
+
 
     // private methods
     const _getToken = async () => {
@@ -44,11 +50,11 @@ const APIController = (function () {
     }
 })();
 
-
-
+let audio
 
 
 const searchSong = async () => {
+
     const searchInput = document.getElementById('searchInput').value;
     try {
         const accessToken = await APIController.getToken();
@@ -57,10 +63,10 @@ const searchSong = async () => {
         if (songData) {
             // Display song information
             document.getElementById('songInfo').innerHTML = `
-          <h2>Song Information:</h2>
-          <p>Title: ${songData.name}</p>
-          <p>Artist: ${songData.artists[0].name}</p>
-        `;
+        <h2>Song Information:</h2>
+        <p>Title: ${songData.name}</p>
+        <p>Artist: ${songData.artists[0].name}</p>
+      `;
 
             // Show the control bar when the song starts playing
             document.getElementById('controlBar').style.display = 'block';

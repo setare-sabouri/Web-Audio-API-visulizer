@@ -1,4 +1,7 @@
 const isCodeSandbox = 'SANDBOX_URL' in process.env || 'CODESANDBOX_HOST' in process.env
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 export default {
     root: 'src/',
