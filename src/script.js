@@ -5,9 +5,8 @@ import { texturesList } from './scripts/textures'
 import { lights } from './scripts/lights'
 import { setText } from './scripts/objects'
 
-export const { VITE_CLIENTSECRET, VITE_CLIENTID } = import.meta.env;
-
-initializeAnalyser();
+// export const { VITE_CLIENTSECRET, VITE_CLIENTID } = import.meta.env;
+// initializeAnalyser();
 THREE.ColorManagement.enabled = false
 
 // Canvas

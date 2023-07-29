@@ -8,6 +8,11 @@ body {
     overflow: hidden;
 }
 
+#songInfo {
+    color: wheat;
+
+}
+
 .webgl {
     position: fixed;
     top: 0;

@@ -1,14 +1,13 @@
+// import { VITE_CLIENTID, VITE_CLIENTSECRET } from "./script";
 
-// import { VITE_CLIENTID, VITE_CLIENTSECRET } from "../script";
 const APIController = (function () {
 
     const clientId = 'e02fbce704c7472bad5b5bedaad5d8da';
     const clientSecret = 'b1b88b7859274db187862925b304e0f7';
-
+    // const { VITE_CLIENTSECRET, VITE_CLIENTID } = import.meta.env;
 
     // const clientId = VITE_CLIENTID;
     // const clientSecret = VITE_CLIENTSECRET;
-
 
 
     // private methods
@@ -52,9 +51,7 @@ const APIController = (function () {
 
 let audio
 
-
 const searchSong = async () => {
-
     const searchInput = document.getElementById('searchInput').value;
     try {
         const accessToken = await APIController.getToken();
@@ -76,7 +73,7 @@ const searchSong = async () => {
             audio = null; // Reset audio to avoid multiple audio objects
 
             // Call the function to update the progress bar
-            updateProgressBar();
+
         } else {
             document.getElementById('songInfo').innerHTML = '<p>No results found.</p>';
             document.getElementById('lyrics').innerHTML = '';
@@ -87,25 +84,9 @@ const searchSong = async () => {
     }
 };
 
-const updateProgressBar = () => {
-    const progressBar = document.getElementById('progressBar');
-    if (audio && !audio.paused) {
-        const progress = (audio.currentTime / audio.duration) * 100;
-        progressBar.value = progress;
-        requestAnimationFrame(updateProgressBar);
-    } else {
-        progressBar.value = 0;
-    }
-};
 
-// Event listener for progress bar click
-document.getElementById('progressContainer').addEventListener('click', (e) => {
-    const progressBar = document.getElementById('progressBar');
-    if (audio && !audio.paused) {
-        const progress = (e.offsetX / progressBar.offsetWidth) * audio.duration;
-        audio.currentTime = progress;
-    }
-});
+
+
 
 const playSong = (previewUrl) => {
     if (previewUrl) {
@@ -115,7 +96,7 @@ const playSong = (previewUrl) => {
 
         audio = new Audio(previewUrl);
         audio.play();
-        updateProgressBar();
+
     }
 };
 
