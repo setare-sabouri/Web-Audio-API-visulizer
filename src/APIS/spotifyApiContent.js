@@ -1,6 +1,4 @@
-
-
-import { getToken, searchSong } from "./APICNTRL";
+import { getToken, searchSong } from './spotifyApiController'
 
 let audio;
 
