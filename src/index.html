@@ -13,7 +13,7 @@
       placeholder="Enter song name and artist"
       value="five finger"
     />
-    <button onclick="searchSong()">Search</button>
+    <button id="searchButton">Search</button>
 
     <div id="controlBar" style="display: none">
       <audio id="audioPlayer" controls>
@@ -28,7 +28,7 @@
 
     <canvas class="webgl"></canvas>
 
-    <script src="./scripts/api.js"></script>
+    <script type="module" src="./scripts/api.js"></script>
     <script type="module" src="./script.js"></script>
     <script type="module" src="./scripts/debug.js"></script>
   </body>
