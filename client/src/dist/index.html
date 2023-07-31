@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Audio</title>
+    
+    <script type="module" crossorigin src="./assets/index-540fe8e6.js"></script>
+    <link rel="stylesheet" href="./assets/index-d76ef2a4.css">
+  </head>
+  <body>
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Enter song name and artist"
+      value="five finger"
+    />
+    <button id="searchButton">Search</button>
+
+    <div id="controlBar" style="display: none">
+      <audio id="audioPlayer" controls>
+        <source id="audioSource" src="" type="audio/mpeg" />
+      </audio>
+    </div>
+
+    <div id="songInfo">
+      <h2>Song Information:</h2>
+      <div id="lyrics"></div>
+    </div>
+
+    <canvas class="webgl"></canvas>
+
+    
+    
+
+    
+    
+  </body>
+</html>

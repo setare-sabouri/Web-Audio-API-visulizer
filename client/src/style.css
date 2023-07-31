@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    overflow: hidden;
+}
+
+#songInfo {
+    color: wheat;
+
+}
+
+.webgl {
+    position: fixed;
+    top: 0;
+    left: 0;
+    outline: none;
+    z-index: -1;
+}
+
+#audio {
+    position: absolute;
+}
+
+
+
+#playButton {
+    background-color: chartreuse;
+}
