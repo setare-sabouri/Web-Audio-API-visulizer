@@ -9,8 +9,8 @@ body {
 }
 
 #songInfo {
-    color: wheat;
-
+    color: rgba(245, 222, 179, 0.89);
+    position: absolute;
 }
 
 .webgl {

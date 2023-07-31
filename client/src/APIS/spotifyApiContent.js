@@ -1,14 +1,15 @@
 import { getToken, searchSong } from './spotifyApi'
 import { getTrackLyrics } from './lyrics';
-let audio;
-
+let songData;
+let lyrics
 const searchSongHandler = async () => {
     const searchInput = document.getElementById('searchInput').value;
     try {
         const accessToken = await getToken();
-        const songData = await searchSong(accessToken, searchInput);
+        songData = await searchSong(accessToken, searchInput);
         if (songData) {
-            const lyrics = await getTrackLyrics(songData.name, songData.artists[0].name);
+            lyrics = await getTrackLyrics(songData.name, songData.artists[0].name);
+            lyrics = lyrics.replace(/\n/g, "<br>");
 
             // Display song information
             document.getElementById('songArtist').innerHTML = `
