@@ -24,11 +24,7 @@ const searchSong = async (accessToken, query) => {
 
     const data = await result.json();
     const tracksWithPreview = data.tracks.items.filter(track => track.preview_url !== null);
-
-
-    //
     const firstTrack = tracksWithPreview[0];
-    // Fetch lyrics for the first track
     await getTrackLyrics(firstTrack.name, firstTrack.artists[0].name);
 
     return tracksWithPreview[0]; // Assuming that I want to display only the first result
